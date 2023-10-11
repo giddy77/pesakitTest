@@ -29,6 +29,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::middleware(['admin'])->group(function () {
         Route::resource('users', UserController::class);//admin can access the user crud routes
 
-        // Add other admin-specific routes here
     });
 });

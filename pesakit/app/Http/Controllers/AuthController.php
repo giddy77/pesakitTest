@@ -41,13 +41,13 @@ class authController extends Controller
     {
         $fields = $request->validate([
             'email' => 'required|string',
-            'password' => 'required|string'//confirms the password from the user
+            'password' => 'required|string'
         ]);
 
         //email check
         $user = User::where('email', $fields['email'])->first();
 
-        if(!$user || Hash::check($fields['password'], $user->password)){
+        if(!$user || !Hash::check($fields['password'], $user->password)){
             return response(['message' => 'your credentials do not match our records'],401); //if the credentials do not match the records return
             //  status code of 401.Unauthorized
         }
@@ -68,6 +68,8 @@ class authController extends Controller
 
         return response(['message' => 'user logged in']);
     }
+
+
     //creaete a logout function to delete the token coz they get stored in the database
 
     public function logout(Request $request)
